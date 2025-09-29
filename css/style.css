@@ -256,7 +256,7 @@ body {
   font-family: 'Special Elite', 'Courier New', monospace;
   color: #444;
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -269,6 +269,18 @@ h3,
   font-family: 'Special Elite', monospace;
   letter-spacing: 1px;
   font-weight: normal;
+}
+
+dt {
+  float: left;
+  clear: left;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+dd {
+  margin-left: 0;
+  overflow: hidden; /* to contain float */
 }
 
 /* Horizontal scrolling container */
@@ -317,3 +329,4 @@ h3,
   text-transform: uppercase;
   font-weight: bold;
 }
+
