@@ -260,6 +260,9 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  @media screen and (max-width: 800px) {
+    font-size: 0.8rem;
+  }
 }
 
 h1,
