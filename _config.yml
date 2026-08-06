@@ -1,0 +1,41 @@
+# Site settings
+title: Skilled Works
+description: Professional picture hanging services in Canberra
+author: Roman Stachurski
+url: "https://skilled.works"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Sass settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - README.md
+
+# Include files
+include:
+  - _pages
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Plugins (GitHub Pages compatible)
+plugins:
+  - jekyll-seo-tag

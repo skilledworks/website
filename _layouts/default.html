@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    {% include head.html %}
+</head>
+<body class="layout-{{ page.layout | default: 'default' }}">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    {% include header.html %}
+    {% include navigation.html %}
+
+    {{ content }}
+
+    {% if page.extra_js %}
+    {% for js in page.extra_js %}
+    <script src="{{ js }}"></script>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>

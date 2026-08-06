@@ -1,0 +1,43 @@
+// ==========================================================================
+// Navigation
+// ==========================================================================
+
+.main-nav {
+  padding: var(--spacing-lg) 0;
+  padding-top: var(--spacing-md);
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xl);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    font-family: var(--font-family-nav);
+    font-size: var(--font-size-nav);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+      opacity: 0.6;
+      text-decoration: none;
+    }
+
+    // Active navigation state
+    &[aria-current="page"] {
+      opacity: 0.5;
+    }
+  }
+}

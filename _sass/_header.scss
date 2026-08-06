@@ -1,0 +1,19 @@
+// ==========================================================================
+// Header / Logo
+// ==========================================================================
+
+.site-header {
+  padding-top: var(--header-padding-top);
+  padding-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.logo {
+  display: inline-block;
+}
+
+.logo-image {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+}

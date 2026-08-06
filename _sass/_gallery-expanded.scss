@@ -1,0 +1,106 @@
+// ==========================================================================
+// Expanded Gallery View
+// ==========================================================================
+
+.gallery-expanded {
+  position: absolute;
+  top: 0;
+  left: var(--container-padding);
+  right: var(--container-padding);
+  height: var(--gallery-height);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: var(--z-gallery-strips);
+
+  // Revealed state: full image visible behind strips during animation
+  // Used for both open (briefly) and close (strips animate over it)
+  &.is-revealed {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+    z-index: var(--z-gallery-back);
+
+    // Hide controls instantly during close - no transitions
+    .gallery-close,
+    .gallery-caption {
+      opacity: 0;
+      transition: none;
+    }
+  }
+
+  // Fully visible state: image on top with controls
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: var(--z-gallery-front);
+
+    .gallery-close {
+      opacity: 1;
+      transform: scale(1);
+      transition-delay: 100ms;
+    }
+
+    .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 200ms;
+    }
+  }
+}
+
+.expanded-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// Close Button
+.gallery-close {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity var(--transition-base), transform var(--transition-base), background var(--transition-fast);
+
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, 1);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+  }
+}
+
+// Caption
+.gallery-caption {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-family-nav);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin: 0;
+  padding: var(--spacing-md) 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}

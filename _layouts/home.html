@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+{{ content }}
+
+<!-- Structured Data for Local Business -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Skilled Works",
+    "description": "Professional picture hanging services in Canberra",
+    "telephone": "+61410209164",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Canberra",
+        "addressRegion": "ACT",
+        "addressCountry": "AU"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -35.2809,
+        "longitude": 149.1300
+    },
+    "areaServed": {
+        "@type": "City",
+        "name": "Canberra"
+    },
+    "founder": {
+        "@type": "Person",
+        "name": "Roman Stachurski"
+    },
+    "priceRange": "$$"
+}
+</script>
+
+<script src="{{ '/assets/js/main.js' | relative_url }}"></script>

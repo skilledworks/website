@@ -1,0 +1,18 @@
+---
+# Jekyll needs this front matter to process the file
+---
+
+// Skilled Works - Main Stylesheet
+// Imports all partials
+
+@import "variables";
+@import "base";
+@import "header";
+@import "navigation";
+@import "gallery-strip";
+@import "gallery-expanded";
+@import "page-content";
+@import "contact-form";
+@import "gallery-page";
+@import "responsive";
+@import "print";

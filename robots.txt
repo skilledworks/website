@@ -1,5 +1,7 @@
-# www.robotstxt.org/
+# robots.txt for Skilled Works
 
-# Allow crawling of all content
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://skilled.works/sitemap.xml
