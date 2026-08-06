@@ -28,16 +28,21 @@ body {
 
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: 0;
   left: 0;
+  // translateY alone still peeks into view during iOS overscroll
+  // bounce; opacity: 0 keeps it invisible yet keyboard-focusable
+  transform: translateY(-100%);
+  opacity: 0;
   background: var(--color-primary);
   color: #fff;
   padding: var(--spacing-sm) var(--spacing-md);
   z-index: 100;
-  transition: top var(--transition-fast);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
 
   &:focus {
-    top: 0;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

@@ -3,7 +3,7 @@
  * Gallery Strip Animation & Interaction
  *
  * Desktop: Click strip to expand, close button to return
- * Mobile: Tap to change featured strip
+ * Mobile: Tap or swipe left/right to change featured strip
  */
 
 (function() {
@@ -95,6 +95,10 @@
   var isAnimating = false;
   var isMobile = false;
 
+  // Touch start coordinates for swipe detection
+  var touchStartX = 0;
+  var touchStartY = 0;
+
   // Animation timeout IDs for cancellation
   var animationTimeouts = [];
 
@@ -102,6 +106,7 @@
   // Constants
   // ==========================================================================
   var MOBILE_BREAKPOINT = 600;
+  var SWIPE_THRESHOLD = 50; // Min horizontal px to count as a swipe
 
   // ==========================================================================
   // Utility Functions
@@ -193,6 +198,11 @@
     if (galleryClose) {
       galleryClose.addEventListener('click', closeGallery);
     }
+
+    // Passive listeners: swipe detection never calls preventDefault,
+    // so vertical page scrolling stays smooth over the gallery
+    galleryStrips.addEventListener('touchstart', handleTouchStart, { passive: true });
+    galleryStrips.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     document.addEventListener('keydown', handleKeydown);
   }
@@ -293,6 +303,37 @@
       currentIndex = index;
       expandGallery(index);
     }
+  }
+
+  // ==========================================================================
+  // Touch Swipe Navigation (mobile)
+  // ==========================================================================
+
+  /**
+   * Record touch start position for swipe detection
+   */
+  function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+  }
+
+  /**
+   * Detect a horizontal swipe on touch end and advance one photo
+   * Ignores mostly-vertical gestures so page scrolling isn't hijacked
+   */
+  function handleTouchEnd(e) {
+    if (!isMobile) return;
+
+    var deltaX = e.changedTouches[0].clientX - touchStartX;
+    var deltaY = e.changedTouches[0].clientY - touchStartY;
+
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+    if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    // Swipe left = next photo, swipe right = previous, wrapping at the ends
+    var direction = deltaX < 0 ? 1 : -1;
+    featuredIndex = (featuredIndex + direction + galleryData.length) % galleryData.length;
+    updateFeaturedStrip();
   }
 
   // ==========================================================================
