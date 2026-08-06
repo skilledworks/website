@@ -4,4 +4,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://skilledworks.com.au/sitemap.xml
+Sitemap: https://skilled.works/sitemap.xml

@@ -2,8 +2,8 @@
 title: Skilled Works
 description: Professional picture hanging services in Canberra
 author: Roman Stachurski
-url: "https://skilledworks.github.io"
-baseurl: "/prototype"
+url: "https://skilled.works"
+baseurl: ""
 
 # Build settings
 markdown: kramdown
