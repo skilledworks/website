@@ -1,0 +1,64 @@
+name: Update Google review count
+
+on:
+  schedule:
+    # Daily: 20:00 UTC (next morning AEST)
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch rating and review count from Google Places API
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: |
+          response=$(curl -sf "https://places.googleapis.com/v1/places/ChIJB2RfhSqE4aYRH81ToWcvsaw" \
+            -H "X-Goog-Api-Key: ${GOOGLE_PLACES_API_KEY}" \
+            -H "X-Goog-FieldMask: rating,userRatingCount")
+
+          rating=$(echo "$response" | jq -r '.rating')
+          count=$(echo "$response" | jq -r '.userRatingCount')
+
+          # Sanity checks: fail loudly rather than commit garbage
+          echo "$rating" | grep -Eq '^[1-5](\.[0-9]+)?$' || { echo "Bad rating: $rating"; exit 1; }
+          echo "$count" | grep -Eq '^[0-9]+$' || { echo "Bad count: $count"; exit 1; }
+          [ "$count" -gt 0 ] || { echo "Count is zero"; exit 1; }
+
+          rating=$(printf '%.1f' "$rating")
+
+          {
+            echo "# Auto-updated by .github/workflows/update-review-count.yml - do not edit by hand"
+            echo "rating: $rating"
+            echo "count: $count"
+          } > _data/google_reviews.yml
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          if git diff --quiet _data/google_reviews.yml; then
+            echo "No change in rating or count"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add _data/google_reviews.yml
+            git commit -m "chore: update Google review rating/count"
+            git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Request Pages build
+        # Pushes made with GITHUB_TOKEN do not trigger the Pages build,
+        # so request one explicitly
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"

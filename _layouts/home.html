@@ -27,6 +27,11 @@ layout: default
         "@type": "City",
         "name": "Canberra"
     },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ site.data.google_reviews.rating }}",
+        "reviewCount": "{{ site.data.google_reviews.count }}"
+    },
     "founder": {
         "@type": "Person",
         "name": "Roman Stachurski"
