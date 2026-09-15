@@ -26,7 +26,7 @@
     --font-size-nav: 1.1rem;
   }
 
-  // Tighter vertical rhythm so the homepage fits the viewport
+  // Tighter vertical rhythm at the top of the page
   .site-header {
     padding-bottom: var(--spacing-md);
   }
@@ -36,41 +36,8 @@
     padding: var(--spacing-md) 0 var(--spacing-lg);
   }
 
-  // Homepage fits the viewport, so kill the iOS rubber-band bounce.
-  // Scoped via :has so scrollable pages keep native overscroll.
-  html:has(.layout-home),
-  .layout-home {
-    overscroll-behavior-y: none;
-  }
-
-  // Homepage fills the viewport: flex column over 100dvh so the
-  // gallery absorbs leftover height instead of forcing a scroll.
-  // dvh tracks the iOS Safari URL bar; vh fallback for old browsers.
-  .layout-home {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    min-height: 100dvh;
-
-    main,
-    .gallery-strip,
-    .gallery-container {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-height: 0;
-    }
-  }
-
   .gallery-strip {
     padding: 0;
-  }
-
-  .gallery-strips {
-    flex: 1;
-    height: auto;
-    min-height: 180px; // Floor: very short screens scroll instead of squashing photos
-    max-height: 420px; // Cap: tall screens get whitespace instead of over-cropped photos
   }
 
   .nav-list {
