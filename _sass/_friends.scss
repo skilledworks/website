@@ -1,0 +1,55 @@
+// ==========================================================================
+// Friends Section (Homepage)
+// ==========================================================================
+
+.friends {
+  padding: 0 0 var(--spacing-xxl);
+
+  .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  h2 {
+    font-family: var(--font-family-nav);
+    font-size: 1.25rem;
+    font-weight: normal;
+    color: var(--color-primary);
+    margin: 0 0 var(--spacing-lg);
+  }
+}
+
+.friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.friends-logo {
+  display: inline-block;
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transition: opacity var(--transition-fast);
+  }
+
+  &:hover img {
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 600px) {
+  .friends {
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .friends-logo img {
+    width: 180px;
+  }
+}
